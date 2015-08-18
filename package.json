@@ -12,7 +12,8 @@
     "merge-stream": "~0.1.7",
     "proxy-middleware": "~0.11.0",
     "react-tools": "~0.13.2",
-    "reactify": "~1.1.0"
+    "reactify": "~1.1.0",
+    "vinyl-source-stream": "~1.1.0"
   },
   "paths": {
     "basedir": "./app",

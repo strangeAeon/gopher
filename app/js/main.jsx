@@ -18,6 +18,8 @@ var EffortStore = require('./EffortStore');
 
 var StoryActions = require('./StoryActions');
 
+var _maxStoryLength = 2000;
+
 var StoryList = React.createClass({
   mixins: [Reflux.listenTo(StoryStore,"onStoryChange")],
 
@@ -89,8 +91,9 @@ var StoryCreationForm = React.createClass({
   },
 
   onTextChange: function(){
+    var value = this.refs.text.getValue();
     this.setState({
-      text: this.refs.text.getValue()
+      text: value.length > _maxStoryLength ? value.substr(0, _maxStoryLength) : value
     });
   },
 
@@ -119,7 +122,7 @@ var StoryCreationForm = React.createClass({
   render: function() {
     return (
       <Panel>
-        <Input type='text' label='User story' ref="text" placeholder='As a user I want to ...' value={this.state.text} onChange={this.onTextChange}/>
+        <Input type='textarea' label='User story' ref="text" placeholder='As a user I want to ...' value={this.state.text} onChange={this.onTextChange}/>
         <Input type='number' label='Effort' ref="effort" value={this.state.effort} onChange={this.onEffortChange}/>
         <Button bsStyle='primary' onClick={this.onSubmit}>Add user story</Button>
       </Panel>

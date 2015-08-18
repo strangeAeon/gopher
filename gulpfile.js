@@ -1,6 +1,7 @@
 var gulp = require("gulp"),
     browserify = require("browserify"),
     reactify = require("reactify"),
+    source = require("vinyl-source-stream"),
     browserSync = require("browser-sync"),
     proxy = require("proxy-middleware"),
     url = require("url"),
@@ -45,7 +46,7 @@ gulp.task("js", ["lint"], function () {
       .transform(reactify, reactifyOpts)
       .bundle()
       .on("error", handleError)
-      .pipe(gulp.src(pckage.dest.app))
+      .pipe(source(pckage.dest.app))
       .pipe(gulp.dest(pckage.dest.dist));
 });
 
