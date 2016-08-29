@@ -1,13 +1,13 @@
 var gulp = require("gulp"),
     browserify = require("browserify"),
-    reactify = require("reactify"),
+    babelify = require("babelify"),
     source = require("vinyl-source-stream"),
     browserSync = require("browser-sync"),
     proxy = require("proxy-middleware"),
     url = require("url"),
-    jshint = require('gulp-jshint'),
+    eslint = require('babel-eslint'),
     path = require("path"),
-    pckage = require("./package.json"), 
+    pckage = require("./package.json"),
     del = require('del');
 
 
@@ -17,9 +17,9 @@ function handleError(err) {
 }
 
 gulp.task('lint', function() {
-  return gulp.src(['app/js/**/*.js', '!app/js/**/__tests__/*'])
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
+  gulp.src([pckage.paths.js, pckage.paths.jsx])
+    .pipe(eslint())
+    .pipe(eslint.format());
 });
 
 gulp.task('clean', function(cb) {
@@ -29,21 +29,18 @@ gulp.task('clean', function(cb) {
 gulp.task('copy', function() {
     gulp.src('app/index.html')
       .pipe(gulp.dest('dist'));
-
-  gulp.src('app/css/*.css')
-      .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task("js", ["lint"], function () {
+gulp.task("js", function () {
   // note that we don't need to exclude the i18n modules from the main build
   // because they're not directly require'd
 
-  var reactifyOpts = {
-    stripTypes: true,
-    es6: false
+  var babelifyOpts = {
+    presets: ['es2015', 'react']
   };
+
   return browserify(pckage.paths.app)
-      .transform(reactify, reactifyOpts)
+      .transform('babelify', babelifyOpts)
       .bundle()
       .on("error", handleError)
       .pipe(source(pckage.dest.app))
@@ -56,10 +53,10 @@ gulp.task("server", ["build"], function () {
     proxyOptions.route = "/api";
 
     browserSync({
-	server: {
-	    baseDir: "./dist",
-            middleware: [proxy(proxyOptions)]
-	}
+    	server: {
+	       baseDir: "./dist",
+        middleware: [proxy(proxyOptions)]
+      }
     });
 });
 
