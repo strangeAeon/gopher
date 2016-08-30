@@ -1,31 +1,27 @@
 var Reflux = require('reflux');
 var Immutable = require('immutable');
-var _ = require('lodash')
+var _ = require('lodash');
 
 var ListActions = require('./ListActions');
 
 var ListStore = Reflux.createStore({
+  // listenables: ListActions,
 
   init: function() {
-    this.state = {
-      list: Immutable.List()
-    };
+    this.list = Immutable.List();
     this.listenTo(ListActions.addItem, this.onAddItem);
   },
 
   onAddItem: function(value) {
     var numValue = parseInt(value);
     if (!_.isNaN(numValue)){
-      var list = this.state.list;
-      this.state = {
-        list: this.state.list.push(numValue)
-      };
-      this.trigger(this.state);
+      this.list = this.list.push(numValue);
+      this.trigger(this.list);
     }
   },
 
-  currentState: function(){
-    return this.state;
+  currentList: function(){
+    return this.list;
   }
 
 });

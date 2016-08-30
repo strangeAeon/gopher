@@ -8,13 +8,19 @@ var ListGroupItem = ReactBootstrap.ListGroupItem;
 var ListStore = require('./ListStore');
 
 var ListComponent = React.createClass({
+    // mixins: [Reflux.listenTo(ListStore, "onListUpdate")],
+    // mixins: [Reflux.connect(ListStore,"list")], >> this.state.list
 
     getInitialState: function() {
-      return ListStore.currentState()
+      return {
+        list: ListStore.currentList()
+      };
     },
 
-    onListUpdate: function(newState) {
-      this.setState(newState);
+    onListUpdate: function(newList) {
+      this.setState({
+        list: newList
+      });
     },
 
     componentDidMount: function() {

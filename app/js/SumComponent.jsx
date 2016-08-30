@@ -4,21 +4,18 @@ var Reflux = require('reflux');
 var SumStore = require('./SumStore');
 
 var SumComponent = React.createClass({
+    mixins: [Reflux.listenTo(SumStore, "onSumUpdate")],
 
     getInitialState: function() {
-      return SumStore.currentState()
+      return {
+        sum: 0
+      };
     },
 
-    onSumUpdate: function(newState) {
-      this.setState(newState);
-    },
-
-    componentDidMount: function() {
-      this.unsubscribe = SumStore.listen(this.onSumUpdate);
-    },
-
-    componentWillUnmount: function() {
-      this.unsubscribe();
+    onSumUpdate: function(newSum) {
+      this.setState({
+        sum: newSum
+      });
     },
 
     render: function() {
