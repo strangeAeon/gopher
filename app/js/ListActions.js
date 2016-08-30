@@ -1,7 +1,6 @@
-var Reflux = require('reflux');
+import Reflux from 'reflux';
 
-var ListActions = Reflux.createActions([
+export const ListActions = Reflux.createActions([
     "addItem",
 ]);
 
-module.exports = ListActions;

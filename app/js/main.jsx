@@ -1,12 +1,10 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {PageHeader} from 'react-bootstrap';
 
-var ReactBootstrap = require('react-bootstrap');
-var PageHeader = ReactBootstrap.PageHeader;
-
-var ListComponent = require('./ListComponent.jsx');
-var SumComponent = require('./SumComponent.jsx');
-var FormComponent = require('./FormComponent.jsx');
+import {ListComponent} from './ListComponent.jsx';
+import {SumComponent} from './SumComponent.jsx';
+import {FormComponent} from './FormComponent.jsx';
 
 class Main extends React.Component{
 
@@ -20,7 +18,7 @@ class Main extends React.Component{
         <SumComponent/>
         <FormComponent/>
       </div>
-    )
+    );
   }
 
 }

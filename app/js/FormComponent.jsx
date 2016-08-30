@@ -1,26 +1,19 @@
-var React = require('react');
-var Reflux = require('reflux');
+import React from 'react';
+import Reflux from 'reflux';
+import {Panel, Button, Input, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 
-var ReactBootstrap = require('react-bootstrap');
-var Panel = ReactBootstrap.Panel;
-var Button = ReactBootstrap.Button;
-var Input = ReactBootstrap.Input;
-var FormGroup = ReactBootstrap.FormGroup;
-var ControlLabel = ReactBootstrap.ControlLabel;
-var FormControl = ReactBootstrap.FormControl;
+import {ListActions} from './ListActions.js';
 
-var ListActions = require('./ListActions');
+export const FormComponent = React.createClass({
 
-var FormComponent = React.createClass({
-
-    getInitialState: function() {
+    getInitialState() {
       return {
         value: 0
       }
     },
 
-    onSubmit: function(){
-      var newValue = this.state.value
+    onSubmit() {
+      const newValue = this.state.value
 
       this.setState({
         value: 0
@@ -29,13 +22,13 @@ var FormComponent = React.createClass({
       ListActions.addItem(newValue);
     },
 
-    onInputChange: function(e){
+    onInputChange(e) {
       this.setState({
         value: e.target.value
       });
     },
 
-    render: function() {
+    render() {
       return (
         <Panel>
           <FormGroup>
@@ -57,4 +50,3 @@ var FormComponent = React.createClass({
     }
 });
 
-module.exports = FormComponent;

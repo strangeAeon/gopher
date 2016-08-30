@@ -1,31 +1,30 @@
-var React = require('react');
-var Reflux = require('reflux');
+import React from 'react';
+import Reflux from 'reflux';
 
-var SumStore = require('./SumStore');
+import {SumStore} from './SumStore.js';
 
-var SumComponent = React.createClass({
+export const SumComponent = React.createClass({
     mixins: [Reflux.listenTo(SumStore, "onSumUpdate")],
 
-    getInitialState: function() {
+    getInitialState() {
       return {
         sum: 0
       };
     },
 
-    onSumUpdate: function(newSum) {
+    onSumUpdate(newSum) {
       this.setState({
         sum: newSum
       });
     },
 
-    render: function() {
+    render() {
       return (
         <p>
           Sum: {this.state.sum}
         </p>
-      )
+      );
     }
 
 });
 
-module.exports = SumComponent;
