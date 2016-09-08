@@ -1,5 +1,5 @@
 import Reflux from 'reflux';
-import {List} from 'immutable;'
+import {List} from 'immutable';
 import {_} from 'lodash';
 
 import {ListActions} from './ListActions.js';
@@ -13,7 +13,7 @@ export const ListStore = Reflux.createStore({
     this.listenTo(ListActions.addItem, this.onAddItem);
   },
 
-  onAddItem() {
+  onAddItem(value) {
     const numValue = parseInt(value);
     if (!_.isNaN(numValue)){
       this.list = this.list.push(numValue);
