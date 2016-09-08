@@ -1,22 +1,18 @@
-var Reflux = require('reflux');
-var Immutable = require('immutable');
+import Reflux from 'reflux';
 
-var Store = Reflux.Store;
+import {ListStore} from './ListStore.js';
 
-var ListStore = require('./ListStore');
+export const SumStore = Reflux.createStore({
 
-var SumStore = Reflux.createStore({
-
-  init: function() {
+  init() {
     this.sum = 0;
     this.listenTo(ListStore, this.onListUpdate);
   },
 
-  onListUpdate: function(newList) {
+  onListUpdate(newList) {
     this.sum = newList.reduce((a, b) => a + b, 0);
     this.trigger(this.sum);
   }
 
 });
 
-module.exports = SumStore;

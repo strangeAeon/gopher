@@ -1,17 +1,15 @@
-var React = require('react');
-var Reflux = require('reflux');
+import React from 'react';
+import Reflux from 'reflux';
+import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
-var ReactBootstrap = require('react-bootstrap');
-var ListGroup = ReactBootstrap.ListGroup;
-var ListGroupItem = ReactBootstrap.ListGroupItem;
+import {ListStore} from './ListStore.js';
 
-var ListStore = require('./ListStore');
+export const ListComponent = React.createClass({
 
-var ListComponent = React.createClass({
     // mixins: [Reflux.listenTo(ListStore, "onListUpdate")],
     // mixins: [Reflux.connect(ListStore,"list")], >> this.state.list
 
-    getInitialState: function() {
+    getInitialState() {
       return {
         list: ListStore.currentList()
       };
@@ -23,15 +21,15 @@ var ListComponent = React.createClass({
       });
     },
 
-    componentDidMount: function() {
+    componentDidMount() {
       this.unsubscribe = ListStore.listen(this.onListUpdate);
     },
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
       this.unsubscribe();
     },
 
-    render: function(){
+    render() {
       return (
         <ListGroup fill>
           {this.state.list.map((value, index) =>
@@ -44,5 +42,3 @@ var ListComponent = React.createClass({
     }
 
 });
-
-module.exports = ListComponent;
