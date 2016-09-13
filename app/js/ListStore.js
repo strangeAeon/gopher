@@ -10,7 +10,14 @@ export const ListStore = Reflux.createStore({
 
   init() {
     this.list = new List();
+    //this.listenToMany(ListActions);
     this.listenTo(ListActions.addItem, this.onAddItem);
+    this.listenTo(ListActions.removeItem, this.onRemoveItem);
+  },
+
+  onRemoveItem(index) {
+    this.list = this.list.remove(index);
+    this.trigger(this.list);
   },
 
   onAddItem(value) {

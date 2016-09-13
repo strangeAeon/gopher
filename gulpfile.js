@@ -32,9 +32,6 @@ gulp.task('copy', function() {
 });
 
 gulp.task("js", function () {
-  // note that we don't need to exclude the i18n modules from the main build
-  // because they're not directly require'd
-
   var babelifyOpts = {
     presets: ['es2015', 'react']
   };
